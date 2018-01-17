@@ -21,6 +21,20 @@
     - oracle-java7-installer
   when: java_needs_oracle and java7_cache_download_src_url_enabled
 
+- name: Create Java 8 Cache Directory
+  file: path=/var/cache/oracle-jdk8-installer state=directory
+  with_items:
+    - oracle-java8-installer
+  when: java_needs_oracle and java8_cache_download_src_url_enabled
+
+- name: Download Java 8 from URL
+  get_url:
+    url: '{{java8_cache_download_src_base_url}}{{java8_cache_download_src_filename}}'
+    dest: '/var/cache/oracle-jdk8-installer/{{java8_cache_download_src_filename}}'
+  with_items:
+    - oracle-java8-installer
+  when: java_needs_oracle and java8_cache_download_src_url_enabled
+
 - name: Remove WebUpd8 Team Java PPA (for Oracle Java)
   apt_repository: repo='ppa:webupd8team/java' state=present
   when: java_cleanup and not java_needs_oracle
