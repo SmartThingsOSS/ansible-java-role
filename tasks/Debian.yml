@@ -20,7 +20,7 @@
   when: java_needs_oracle
 
 - name: Install Java packages
-  apt: pkg={{ item }} state=latest
+  apt: pkg={{ item }} state=present
   with_items: java_packages
 
 - name: Remove unwanted Java packages
