@@ -17,7 +17,7 @@
     - oracle-java6-installer
     - oracle-java7-installer
     - oracle-java8-installer
-  when: java_needs_oracle
+  when: java_needs_oracle and not java7_cache_download_src_url_enabled
 
 - name: Install Java packages
   apt: pkg={{ item }} state=present
